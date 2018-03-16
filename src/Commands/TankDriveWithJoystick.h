@@ -5,19 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "OI.h"
+#pragma once
 
-#include <WPILib.h>
-#include <SmartDashboard/SmartDashboard.h>
+#include <Commands/Command.h>
 
-OI::OI() {
-	// Process operator interface input here.
-	m_joy1.WhenPressed(new PrepareToPickup());
-	m_joy2.WhenPressed(new Pickup());
-	m_joy3.WhenPressed(new Place());
-	m_joy4.WhenPressed(new Autonomous());
-}
-
-frc::Joystick& OI::GetJoystick() {
-	return m_joy;
-}
+/**
+ * Have the robot drive tank style using the PS3 Joystick until interrupted.
+ */
+class TankDriveWithJoystick : public frc::Command {
+public:
+	TankDriveWithJoystick();
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+};

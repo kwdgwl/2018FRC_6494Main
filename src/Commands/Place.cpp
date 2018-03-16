@@ -5,19 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "OI.h"
+#include "../../../2018FRC_6494Main/src/Commands/Place.h"
 
-#include <WPILib.h>
-#include <SmartDashboard/SmartDashboard.h>
+#include "SetElevatorSetpoint.h"
+#include "SetWristSetpoint.h"
+#include "../../../2018FRC_6494Main/src/Commands/OpenClaw.h"
 
-OI::OI() {
-	// Process operator interface input here.
-	m_joy1.WhenPressed(new PrepareToPickup());
-	m_joy2.WhenPressed(new Pickup());
-	m_joy3.WhenPressed(new Place());
-	m_joy4.WhenPressed(new Autonomous());
-}
-
-frc::Joystick& OI::GetJoystick() {
-	return m_joy;
+Place::Place()
+    : frc::CommandGroup("Place") {
+	AddSequential(new SetElevatorSetpoint(0.25));
+	AddSequential(new SetWristSetpoint(0));
+	AddSequential(new OpenClaw());
 }
